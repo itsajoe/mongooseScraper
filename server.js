@@ -57,7 +57,7 @@ res.send("Scrape Complete")
     
 });
 
-app.get("/articles", function(req, res) {
+app.get("/", function(req, res) {
     db.Article.find({})
     .then(function(dbArticle) {
         var obj = {
@@ -94,6 +94,19 @@ app.get("/articles", function(req, res) {
         res.json(err);
       });
   });
+  app.delete("/delete", function(req, res) {
+    db.Article.remove({}, function(err) {
+      if (err) {
+        console.log(err);
+      }
+    });
+    db.Note.remove({}, function(err) {
+      if (err) {
+        console.log(err);
+      }
+    });
+    res.end();
+  })
 
 
 // listen
